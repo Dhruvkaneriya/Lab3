@@ -9,26 +9,28 @@ namespace Lab3.ModelComponents
 	public enum SurfaceLocation
 	{
 		left = 0,
-		right = 1,
-		top = 2,
-		bottom = 3
+		top = 1,
+		right = 2,
+		bot = 3
 	}
 
 	public class Cell : Rectangle
 	{
 		private const int NUM_SURFACES = 4;
-        private List<Phonon> phonons = new() { };
-		private List<Phonon> incomingPhonons = new() { };
+		private List<Phonon> phonons = new List<Phonon>() { };
+		private List<Phonon> incomingPhonons = new List<Phonon>() { };
 		private ISurface[] surfaces = new ISurface[NUM_SURFACES];
-
 		public List<Phonon> Phonons { get { return phonons; } }
 
-        public List<Phonon> Phonons1 { get => phonons; set => phonons = value; }
-
-        public Cell(double length, double width)
+		public Cell(double length, double width)
 			: base(length, width)
 		{
-			
+
+			foreach (int surface in Enum.GetValues(typeof(SurfaceLocation)))
+			{
+				surfaces[surface] = new BoundarySurface((SurfaceLocation)surface, this);
+			}
+
 		}
 
 		public void AddPhonon(Phonon p)
@@ -41,29 +43,26 @@ namespace Lab3.ModelComponents
 			incomingPhonons.Add(p);
 		}
 
-
 		public void MergeIncPhonons()
 		{
-			foreach (var phonon in incomingPhonons)
-			{
-				phonons.Add(phonon);
-			}
+			phonons.AddRange(incomingPhonons);
 			incomingPhonons.Clear();
 		}
 
 		public ISurface GetSurface(SurfaceLocation loc)
 		{
-			throw new NotImplementedException();
+			return surfaces[(int)loc];
 		}
 
 		public SurfaceLocation? MoveToNearestSurface(Phonon p)
-		{	
+		{
+			// TODO - challenging!! be cautious of floating point issues!
 			throw new NotImplementedException();
 		}
 
 		public override string ToString()
 		{
-			return string.Format("{0,-7} {1,-7}", phonons.Count, incomingPhonons.Count);
+			return string.Format($"{phonons.Count}, {incomingPhonons.Count}");
 		}
 	}
 }

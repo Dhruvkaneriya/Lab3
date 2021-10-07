@@ -27,10 +27,7 @@ namespace Lab3
 				X = x;
 				Y = y;
 			}
-			/// <summary>
-			/// Set the coordinates of the point. If either of the input parameters is null, then the 
-			/// corresponding point will not be changed.
-			/// </summary>
+
 			public void SetCoords(double? x, double? y)
 			{
 				X = x ?? X;
@@ -39,23 +36,13 @@ namespace Lab3
 			public override string ToString() => $"({X}, {Y})\n";
 		}
 
-
-		/// <summary>
-		///	A direction vector that has both an x and y component.
-		///	Will throw if either component is not in the interval [-1, 1].
-		/// </summary>
 		public class Vector
 		{
 			public double DX { get; private set; }
 			public double DY { get; private set; }
+
 			public Vector(double dx = 0, double dy = 0) => Set(dx, dy);
 
-			/// <summary>
-			/// Sets the x and y components of the vector.
-			/// </summary>
-			/// <param name="dx">The component of the vector in the x-direction</param>
-			/// <param name="dy">The component of the vector in the y-direction</param>
-			/// <exception cref="ArgumentOutOfRangeException"></exception>
 			public void Set(double dx, double dy)
 			{
 				bool InRange(double x) => x <= 1 && x >= -1;
@@ -72,10 +59,7 @@ namespace Lab3
 			}
 			public override string ToString() => $"({DX}, {DY})\n";
 		}
-
-		/// <summary>
-		/// An immutable rectangle. The length and width cannot be altered after the rectangle is created.
-		/// </summary>		
+		
 		public class Rectangle
 		{
 			public double Length { get; }

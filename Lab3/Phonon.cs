@@ -10,16 +10,10 @@ namespace Lab3.Particles
 
 	public class Phonon : Particle
 	{
-		/// <summary>
-		/// The sign of the phonon will determine whether it has a contributory or a 
-		/// detracting effect on the system temperature/flux.
-		/// </summary>
 		public int Sign { get; private set; }
 		public double Frequency { get; private set; }
 		public Polarization Polarization { get; private set; }
-		/// <summary>
-		/// If a phonon is inactive, it should be removed from the simulation
-		/// </summary>
+
 		public bool Active { get; set; }
 		public double DriftTime { get; set; }
 
@@ -39,11 +33,6 @@ namespace Lab3.Particles
 			DriftTime = p.DriftTime;
 		}
 
-		/// <summary>
-		/// Set the sign of the phonon
-		/// </summary>
-		/// <param name="sign">The sign of the phonon. Must be 1 or -1</param>
-		/// <exception cref="ArgumentOutOfRangeException">Throws if the sign is not 1 or -1</exception>
 		public void SetSign(int sign)
 		{
 			if (sign == -1 || sign == 1)
